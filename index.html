@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bookbuddy — Premium Bookstore</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="page active" id="pg-login">
+  <div class="login-deco">📚</div>
+  <div class="login-card">
+    <div class="login-brand">
+      <span class="brand-icon">📖</span>
+      <h1>Bookbuddy</h1>
+      <p>Premium Bookstore</p>
+    </div>
+    <div class="field-group">
+      <label>Full Name</label>
+      <input type="text" id="l-name" placeholder="e.g. Diptesh Prajapati">
+    </div>
+    <div class="field-group">
+      <label>Email Address</label>
+      <input type="email" id="l-email" placeholder="you@example.com">
+    </div>
+    <div class="field-group">
+      <label>Password</label>
+      <input type="password" id="l-pass" placeholder="••••••••">
+    </div>
+    <button class="login-cta" id="login-btn">Sign In & Shop →</button>
+    <p class="login-err" id="login-err">⚠ Please fill all fields to continue.</p>
+  </div>
+</div>
+
+<div class="page" id="pg-store">
+  <header class="topbar">
+    <div class="topbar-logo" id="logo-home">📖 bookbuddy</div>
+    <nav class="topbar-nav">
+      <button class="nav-btn active" data-cat="all">All Books</button>
+      <button class="nav-btn" data-cat="cse">CS & Engineering</button>
+      <button class="nav-btn" data-cat="innovation">Innovation</button>
+      <button class="nav-btn" data-cat="discipline">Discipline</button>
+      <button class="nav-btn" data-cat="mindset">Mindset</button>
+      <button class="nav-btn" data-cat="philosophy">Philosophy</button>
+    </nav>
+    <div class="topbar-actions">
+      <div class="search-wrap">
+        <span>🔍</span>
+        <input type="text" id="search-box" placeholder="Search books…">
+      </div>
+      <button class="cart-btn" id="open-cart">
+        🛒 Cart <span class="cart-count" id="cart-count">0</span>
+      </button>
+      <div class="user-badge">
+        <div class="user-avatar" id="user-av">D</div>
+        <span id="user-name-lbl">Reader</span>
+        <button class="logout-link" id="logout-btn">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">New Arrivals 2025</div>
+        <h1>Books That Shape <em>Brilliant</em> Minds</h1>
+        <p>Curated collection of must-read titles for engineers, thinkers, and lifelong learners. Free delivery on orders over ₹499.</p>
+        <div class="hero-btns">
+          <button class="btn-gold" id="shop-now">Shop Now</button>
+          <button class="btn-outline" id="browse-btn">Browse Categories</button>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="h-stat"><span class="h-stat-n">22+</span><span class="h-stat-l">Books</span></div>
+        <div class="h-stat"><span class="h-stat-n">5</span><span class="h-stat-l">Categories</span></div>
+        <div class="h-stat"><span class="h-stat-n">Free</span><span class="h-stat-l">Delivery</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="featured-strip">
+    <span class="strip-label">✦ Featured</span>
+    <div class="strip-divider"></div>
+    <div class="strip-scroll" id="strip-scroll"></div>
+  </div>
+
+  <div class="shop-wrap" id="shop-anchor">
+    <div class="shop-header">
+      <h2 id="grid-title">All Books <span style="font-family:'Outfit';font-size:16px;color:var(--muted)" id="grid-count"></span></h2>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <div class="filter-pills" id="filter-pills">
+          <button class="filter-pill active" data-cat="all">All</button>
+          <button class="filter-pill" data-cat="cse">CS & Eng</button>
+          <button class="filter-pill" data-cat="innovation">Innovation</button>
+          <button class="filter-pill" data-cat="discipline">Discipline</button>
+          <button class="filter-pill" data-cat="mindset">Mindset</button>
+          <button class="filter-pill" data-cat="philosophy">Philosophy</button>
+        </div>
+        <select class="sort-select" id="sort-sel">
+          <option value="default">Sort: Featured</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </div>
+    </div>
+    <div class="book-grid" id="book-grid"></div>
+    <div id="empty-state" style="display:none;text-align:center;padding:80px 20px;color:var(--muted)">
+      <div style="font-size:60px;margin-bottom:16px">📭</div>
+      <p style="font-size:16px; font-weight: 500;">No books found. Try a different search.</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-logo">📖 bookbuddy</div>
+    <div class="footer-links">
+      <a href="#">About Us</a><a href="#">Contact</a><a href="#">Privacy Policy</a><a href="#">Returns</a><a href="#">Track Order</a>
+    </div>
+    <p class="footer-copy">© 2025 bookbuddy Bookstore · Created</p>
+  </footer>
+</div>
+
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-top">
+    <h2>🛒 Your Cart</h2>
+    <button class="cart-close" id="close-cart">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-bottom" id="cart-bottom" style="display:none">
+    <div class="cart-summary">
+      <div class="cart-row"><span>Subtotal</span><span class="subtotal-val">₹0</span></div>
+      <div class="cart-row"><span>Delivery</span><span id="delivery-val">₹49</span></div>
+      <div class="cart-row"><span>Discount</span><span style="color:#2a9d8f; font-weight: bold;" id="disc-val">—</span></div>
+      <div class="cart-row total"><span>Total</span><span class="val total-val">₹0</span></div>
+    </div>
+    <button class="checkout-btn" id="go-checkout">Proceed to Checkout 🔐</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" id="modal-box">
+    <div class="modal-header"><button class="modal-close" id="modal-close">✕</button></div>
+    <div class="modal-content" id="modal-content"></div>
+  </div>
+</div>
+
+<div class="page" id="pg-checkout">
+  <div class="checkout-wrap">
+    <button class="back-link" id="back-to-shop">← Back to Shop</button>
+    <h1>Checkout</h1>
+    <p class="sub">You're almost there! Complete your purchase securely.</p>
+    <div class="checkout-grid">
+      <div>
+        <div class="checkout-section">
+          <h3><span>1</span> Shipping Details</h3>
+          <div class="form-row">
+            <div class="form-field"><label>First Name</label><input type="text" id="c-fname" placeholder="Diptesh"></div>
+            <div class="form-field"><label>Last Name</label><input type="text" id="c-lname" placeholder="Prajapati"></div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field"><label>Email</label><input type="email" id="c-email" placeholder="you@example.com"></div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field"><label>Address</label><input type="text" id="c-addr" placeholder="Street, Area"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>City</label><input type="text" id="c-city" placeholder="Jamnagar"></div>
+            <div class="form-field"><label>PIN Code</label><input type="text" id="c-pin" placeholder="361001"></div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field">
+              <label>State</label>
+              <select id="c-state">
+                <option>Gujarat</option><option>Maharashtra</option><option>Rajasthan</option><option>Delhi</option><option>Karnataka</option><option>Tamil Nadu</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkout-section">
+          <h3><span>2</span> Payment</h3>
+          <div class="card-icons">
+            <span class="card-icon">💳 Visa</span>
+            <span class="card-icon">🟠 Mastercard</span>
+            <span class="card-icon">🟢 UPI</span>
+            <span class="card-icon">🏦 Net Banking</span>
+          </div>
+          <div class="form-row full">
+            <div class="form-field"><label>Card Number</label><input type="text" id="c-card" placeholder="1234 5678 9012 3456" maxlength="19"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Expiry</label><input type="text" id="c-exp" placeholder="MM/YY" maxlength="5"></div>
+            <div class="form-field"><label>CVV</label><input type="password" id="c-cvv" placeholder="•••" maxlength="3"></div>
+          </div>
+          <div class="form-row full">
+            <div class="form-field"><label>Name on Card</label><input type="text" id="c-cname" placeholder="Diptesh Prajapati"></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <div class="order-items" id="order-items"></div>
+          <div class="order-divider"></div>
+          <div class="order-row"><span>Subtotal</span><span class="co-sub">₹0</span></div>
+          <div class="order-row"><span>Delivery</span><span class="co-del">₹49</span></div>
+          <div class="order-row"><span>Discount</span><span class="co-disc" style="color:#2a9d8f; font-weight: bold;">—</span></div>
+          <div class="order-row grand"><span>Grand Total</span><span class="amt co-total">₹0</span></div>
+          <button class="place-order-btn" id="place-order">🔐 Place Order</button>
+          <p class="secure-note">🔒 256-bit SSL encrypted · Secure checkout</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="pg-confirm">
+  <div class="confirm-box">
+    <div class="confirm-anim">🎉</div>
+    <h1>Order <em>Confirmed!</em></h1>
+    <p>Thank you for shopping at bookbuddy! Your books are being packed and will reach you soon.</p>
+    <div class="confirm-order-id">
+      <small>Order ID</small>
+      <strong id="order-id-display">#PT-000000</strong>
+    </div>
+    <div class="confirm-steps">
+      <div class="confirm-step"><span class="step-icon">✅</span><p>Order Confirmed</p></div>
+      <div class="confirm-step"><span class="step-icon">📦</span><p>Being Packed</p></div>
+      <div class="confirm-step"><span class="step-icon">🚚</span><p>Out for Delivery</p></div>
+      <div class="confirm-step"><span class="step-icon">🏠</span><p>Delivered</p></div>
+    </div>
+    <button class="confirm-btn" id="continue-shopping">Continue Shopping →</button>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="js/script.js"></script>
+</body>
+</html>
